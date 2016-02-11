@@ -1,5 +1,5 @@
 # firmwalker
-A simple script for searching the file system of extracted or mounted firmware!
+A simple script for searching the extracted or mounted file system of a firmware file.
 
 The script is meant to be run inside the "rootfs" directory after the file system is extracted from the firmware and will write the data to a file one directory higher.
 
