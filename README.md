@@ -1,8 +1,6 @@
 # firmwalker
 A simple script for searching the extracted or mounted file system of a firmware file.
 
-The script is meant to be run inside the "rootfs" directory after the file system is extracted from the firmware and will write the data to a file one directory higher.
-
 It will search through the extracted or mounted file system for things of interest such as:
 
 * etc/shadow and etc/passwd
@@ -17,4 +15,10 @@ It will search through the extracted or mounted file system for things of intere
 
 * NOTE: Some of the data written to the file may be quite verbose. It that case, the data can be reviewed and then deleted if desired from the file.
 
-## Script created by Craig Smith
+## Usage
+* './firmwalker {path to root file system}'
+* 'Example: ./firmwalker linksys/fmk/rootfs'
+* A file "firmwalker.txt" will be created in the same directory as the script file
+* Do not put the firmwalker.sh file inside the directory to be searched, this will cause the script to search itself and the file it is creating
+
+### Script created by Craig Smith
