@@ -2,7 +2,7 @@
 
 if [[ $# -ne 1 ]] ; then
 	echo 'Usage:'
-	echo './firmwalker {path to root file system}'
+	echo './firmwalker {path to extracted file system of firmware}'
 	echo 'Example: ./firmwalker linksys/fmk/rootfs'
 	exit
 fi
