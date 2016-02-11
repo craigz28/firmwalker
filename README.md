@@ -17,7 +17,7 @@ It will search through the extracted or mounted file system for things of intere
 
 ## Usage
 * './firmwalker {path to root file system}'
-* 'Example: ./firmwalker linksys/fmk/rootfs'
+* Example: './firmwalker linksys/fmk/rootfs'
 * A file "firmwalker.txt" will be created in the same directory as the script file
 * Do not put the firmwalker.sh file inside the directory to be searched, this will cause the script to search itself and the file it is creating
 * chmod 700 firmwalker.sh
