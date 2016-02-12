@@ -24,3 +24,4 @@ It will search through the extracted or mounted file system for things of intere
 
 ### Script created by Craig Smith
 * https://craigsmith.net
+* https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project#tab=Firmware_Analysis
