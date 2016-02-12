@@ -1,7 +1,7 @@
 # firmwalker
-A simple script for searching the extracted or mounted file system of a firmware file.
+A simple script for searching the extracted or mounted firmware file system.
 
-It will search through the extracted or mounted file system for things of interest such as:
+It will search through the extracted or mounted firmware file system for things of interest such as:
 
 * etc/shadow and etc/passwd
 * list out the etc/ssl directory
