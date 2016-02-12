@@ -23,3 +23,4 @@ It will search through the extracted or mounted file system for things of intere
 * chmod 700 firmwalker.sh
 
 ### Script created by Craig Smith
+* https://craigsmith.net
