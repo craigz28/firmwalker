@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Check for argument
 if [[ $# -ne 1 ]] ; then
 	echo 'Usage:'
 	echo './firmwalker {path to extracted file system of firmware}'
@@ -7,83 +8,89 @@ if [[ $# -ne 1 ]] ; then
 	exit
 fi
 
+#Set variables
 FIRMDIR=$1
 file="firmwalker.txt"
 
-echo "Search for passwd and shadow files" > $file
-echo "---passwd---" >> $file
-find $FIRMDIR -name "passwd"  >> $file
-echo "---shadow---" >> $file
-find $FIRMDIR -name "shadow" >> $file
-echo >> $file
-echo "List etc/ssl directory" >> $file
-echo "---etc/ssl---" >> $file
-ls -l $FIRMDIR/etc/ssl >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for SSH authorized_keys file" >> $file
-find $FIRMDIR -name "authorized_keys" >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for configuration files" >> $file
-find $FIRMDIR -name "*.conf" >> $file
-find $FIRMDIR -name "*.cfg" >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for SSL related files" >> $file
-find $FIRMDIR -name "*.pem" >> $file
-find $FIRMDIR -name "*.crt" >> $file
-find $FIRMDIR -name "*.cer" >> $file
-find $FIRMDIR -name "*.p7b" >> $file
-find $FIRMDIR -name "*.p12" >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for shell scripts" >> $file
-find $FIRMDIR -name "*.sh" >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for other .bin files" >> $file
-find $FIRMDIR -name "*.bin" >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for patterns in files" >> $file
-echo "---admin-------------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "admin" | fold -w 80 >> $file
-echo "---root--------------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "root" | fold -w 80 >> $file
-echo "---password----------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "password" | fold -w 80 >> $file
-echo "---passwd------------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "passwd" | fold -w 80 >> $file
-echo "---pwd---------------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "pwd" | fold -w 80 >> $file
-echo "---default-----------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "default" | fold -w 80 >> $file
-echo "---dropbear----------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "dropbear" | fold -w 80 >> $file
-echo "---ssl---------------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "ssl" | fold -w 80 >> $file
-echo "---remote------------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "remote" | fold -w 80 >> $file
-echo "---encrypt-----------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "encrypt" | fold -w 80 >> $file
-echo "---private-----------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "private" | fold -w 80 >> $file
-echo "---api---------------------------------------------------------------------------------" >> $file
-grep -sirnw $FIRMDIR -e "api" | fold -w 80 >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for web servers" >> $file
-find $FIRMDIR -name "lighttpd" >> $file
-find $FIRMDIR -name "alphapd" >> $file
-find $FIRMDIR -name "httpd" >> $file
-echo >> $file
-echo "---------------------------------------------------------------------------------------" >> $file
-echo "Search for important binaries" >> $file
-find $FIRMDIR -name "ssh" >> $file
-find $FIRMDIR -name "scp" >> $file
-find $FIRMDIR -name "sftp" >> $file
-find $FIRMDIR -name "tftp" >> $file
-find $FIRMDIR -name "dropbear" >> $file
-find $FIRMDIR -name "busybox" >> $file
-find $FIRMDIR -name "telnet" >> $file
+#Remove previous file
+rm $file
+
+#Perform searches
+echo "Firmware Directory" | tee -a $file
+echo $FIRMDIR | tee -a $file
+echo "Search for passwd and shadow files" | tee -a $file
+echo "#####################################passwd############################################" | tee -a $file
+find $FIRMDIR -name "passwd" -printf "%P\n" | tee -a $file
+echo "#####################################shadow############################################" | tee -a $file
+find $FIRMDIR -name "shadow" -printf "%P\n" | tee -a $file
+echo | tee -a $file
+echo "List etc/ssl directory" | tee -a $file
+echo "#####################################etc/ssl###########################################" | tee -a $file
+ls -l $FIRMDIR/etc/ssl | tee -a $file
+echo | tee -a $file
+echo "Search for SSH authorized_keys file" | tee -a $file
+echo "####################################SSH################################################" | tee -a $file
+find $FIRMDIR -name "authorized_keys" -printf "%P\n" | tee -a $file
+echo | tee -a $file
+echo "Search for configuration files" | tee -a $file
+echo "#####################################configuration files###############################" | tee -a $file
+find $FIRMDIR -name "*.conf" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "*.cfg" -printf "%P\n" | tee -a $file
+echo | tee -a $file
+echo "Search for SSL related files" | tee -a $file
+echo "#####################################SSL files#########################################" | tee -a $file
+find $FIRMDIR -name "*.pem" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "*.crt" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "*.cer" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "*.p7b" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "*.p12" -printf "%P\n" | tee -a $file
+echo | tee -a $file
+echo "Search for shell scripts" | tee -a $file
+echo "#####################################shell scripts#####################################" | tee -a $file
+find $FIRMDIR -name "*.sh" -printf "%P\n" | tee -a $file
+echo | tee -a $file
+echo "Search for other .bin files" | tee -a $file
+echo "#####################################bin files#########################################" | tee -a $file
+find $FIRMDIR -name "*.bin" -printf "%P\n" | tee -a $file
+echo | tee -a $file
+echo "Search for patterns in files" | tee -a $file
+echo "#####################################admin#############################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "admin" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################root##############################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "root" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################password##########################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "password" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################passwd############################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "passwd" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################pwd###############################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "pwd" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################default###########################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "default" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################dropbear##########################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "dropbear" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################ssl###############################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "ssl" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################remote############################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "remote" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################encrypt###########################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "encrypt" | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################private###########################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "private"  | cut -c${#FIRMDIR}- | tee -a $file
+echo "#####################################api###############################################" | tee -a $file
+grep -lsirnw $FIRMDIR -e "api" | cut -c${#FIRMDIR}- | tee -a $file
+echo | tee -a $file
+echo "Search for web servers" | tee -a $file
+echo "#####################################search for web servers############################" | tee -a $file
+find $FIRMDIR -name "lighttpd" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "alphapd" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "httpd" -printf "%P\n" | tee -a $file
+echo | tee -a $file
+echo "Search for important binaries" | tee -a $file
+echo "#####################################important binaries################################" | tee -a $file
+find $FIRMDIR -name "ssh" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "scp" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "sftp" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "tftp" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "dropbear" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "busybox" -printf "%P\n" | tee -a $file
+find $FIRMDIR -name "telnet" -printf "%P\n" | tee -a $file
