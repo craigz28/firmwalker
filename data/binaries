@@ -1,0 +1,7 @@
+ssh
+scp
+sftp
+tftp
+dropbear
+busybox
+telnet
