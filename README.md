@@ -20,7 +20,7 @@ It will search through the extracted or mounted firmware file system for things 
 * Example: './firmwalker linksys/fmk/rootfs'
 * A file "firmwalker.txt" will be created in the same directory as the script file unless you specify a different filename as the second argument
 * Do not put the firmwalker.sh file inside the directory to be searched, this will cause the script to search itself and the file it is creating
-* chmod 01700 firmwalker.sh
+* chmod 0700 firmwalker.sh
 
 ## How to extend
 * Have a look under data where the checks live - feel free to extend as you see fit
