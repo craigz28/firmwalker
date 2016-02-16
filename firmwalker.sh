@@ -14,6 +14,14 @@ function msg {
     echo "$1" | tee -a $FILE
 }
 
+function getArray {
+    array=() # Create array
+    while IFS= read -r line
+    do
+        array+=("$line")
+    done < "$1"
+}
+
 # Check for arguments
 if [[ $# -gt 2 || $# -lt 1 ]]; then
     usage
@@ -35,7 +43,8 @@ fi
 msg "Firmware Directory"
 msg $FIRMDIR
 msg "Search for password files"
-mapfile -t passfiles < "data/passfiles"
+getArray "data/passfiles"
+passfiles=("${array[@]}")
 for passfile  in "${passfiles[@]}"
 do
     msg "##################################### $passfile"
@@ -54,9 +63,11 @@ find $FIRMDIR -name "authorized_keys" | cut -c${#FIRMDIR}- | tee -a $FILE
 msg ""
 msg "Search for configuration files"
 msg "##################################### configuration files"
-mapfile -t conffiles < data/conffiles
+getArray "data/conffiles"
+conffiles=("${array[@]}")
 for conffile in ${conffiles[@]}
 do
+    msg "##################################### $conffile"
     find $FIRMDIR -name "*.$conffile" | cut -c${#FIRMDIR}- | tee -a $FILE
 done
 msg ""
@@ -65,6 +76,7 @@ msg "##################################### SSL files"
 mapfile -t sslfiles < data/sslfiles
 for sslfile in ${sslfiles[@]}
 do
+    msg "##################################### $sslfile"
     find $FIRMDIR -name "*.$sslfile" | cut -c${#FIRMDIR}- | tee -a $FILE
 done
 msg "Search for shell scripts"
@@ -76,7 +88,8 @@ msg "##################################### bin files"
 find $FIRMDIR -name "*.bin" | cut -c${#FIRMDIR}- | tee -a $FILE
 msg ""
 msg "Search for patterns in files"
-mapfile -t patterns < data/patterns
+getArray "data/patterns"
+patterns=("${array[@]}")
 for pattern in "${patterns[@]}"
 do
     msg "##################################### $pattern"
@@ -85,16 +98,20 @@ done
 msg ""
 msg "Search for web servers" 
 msg "##################################### search for web servers"
-mapfile -t webservers < data/webservers
+getArray "data/webservers"
+webservers=("${array[@]}")
 for webserver in ${webservers[@]}
 do
+    msg "##################################### $webserver"
     find $FIRMDIR -name "webserver" | cut -c${#FIRMDIR}- | tee -a $FILE
 done
 msg ""
 msg "Search for important binaries"
 msg "##################################### important binaries"
-mapfile -t binaries < data/binaries
+getArray "data/binaries"
+binaries=("${array[@]}")
 for binary in "${binaries[@]}"
 do
+    msg "##################################### $binary"
     find $FIRMDIR -name "$binary" | cut -c${#FIRMDIR}- | tee -a $FILE
 done
