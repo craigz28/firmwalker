@@ -73,7 +73,8 @@ done
 msg ""
 msg "Search for SSL related files"
 msg "##################################### SSL files"
-mapfile -t sslfiles < data/sslfiles
+getArray "data/sslfiles"
+sslfiles=("${array[@]}")
 for sslfile in ${sslfiles[@]}
 do
     msg "##################################### $sslfile"
