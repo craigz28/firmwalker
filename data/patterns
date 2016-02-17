@@ -11,3 +11,4 @@ remote
 encrypt
 private
 api
+authorized_keys
