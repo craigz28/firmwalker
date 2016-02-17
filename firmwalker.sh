@@ -97,14 +97,14 @@ do
     grep -lsirnw $FIRMDIR -e "$pattern" | cut -c${#FIRMDIR}- | tee -a $FILE
 done
 msg ""
-msg "Search for web servers" 
+msg "Search for web servers"
 msg "##################################### search for web servers"
 getArray "data/webservers"
 webservers=("${array[@]}")
 for webserver in ${webservers[@]}
 do
     msg "##################################### $webserver"
-    find $FIRMDIR -name "webserver" | cut -c${#FIRMDIR}- | tee -a $FILE
+    find $FIRMDIR -name "$webserver" | cut -c${#FIRMDIR}- | tee -a $FILE
 done
 msg ""
 msg "Search for important binaries"
