@@ -1,7 +1,9 @@
 ssh
+sshd
 scp
 sftp
 tftp
 dropbear
 busybox
 telnet
+telnetd
