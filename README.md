@@ -1,4 +1,4 @@
-![logo](https://github.com/craigz28/firmwalker/blob/master/CS.FW.LOGO.SQUARE.png)
+![logo](https://github.com/craigz28/firmwalker/blob/master/CS.FW.LOGO.SQUARE.jpg)
 # firmwalker
 A simple bash  script for searching the extracted or mounted firmware file system.
 
