@@ -1,14 +1,13 @@
+blank
+upgrade
 admin
 root
 password
 passwd
 pass
 pwd
-default
 dropbear
 ssl
 remote
 encrypt
-private
-api
-authorized_keys
+private key

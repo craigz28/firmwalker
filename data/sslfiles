@@ -1,5 +1,5 @@
-pem
-crt
-cer
-p7b
-p12
+*.pem
+*.crt
+*.cer
+*.p7b
+*.p12

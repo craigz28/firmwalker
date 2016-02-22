@@ -1,3 +1,4 @@
-conf
-cfg
-ini
+*.conf
+*.cfg
+*.ini
+*.log
