@@ -53,32 +53,34 @@ done
 msg ""
 if [[ -d "$FIRMDIR/etc/ssl" ]]; then
     msg "List etc/ssl directory"
-    msg  "##################################### etc/ssl"
     ls -l $FIRMDIR/etc/ssl | tee -a $FILE
 fi
 msg ""
-msg "Search for SSH authorized_keys file"
-msg "#################################### SSH"
-find $FIRMDIR -name "authorized_keys" | cut -c${#FIRMDIR}- | tee -a $FILE
+msg "Search for SSH related files"
+getArray "data/sshfiles"
+sshfiles=("${array[@]}")
+for sshfile in ${sshfiles[@]}
+do
+    msg "##################################### $sshfile"
+    find $FIRMDIR -name $sshfile | cut -c${#FIRMDIR}- | tee -a $FILE
+done
 msg ""
 msg "Search for configuration files"
-msg "##################################### configuration files"
 getArray "data/conffiles"
 conffiles=("${array[@]}")
 for conffile in ${conffiles[@]}
 do
     msg "##################################### $conffile"
-    find $FIRMDIR -name "*.$conffile" | cut -c${#FIRMDIR}- | tee -a $FILE
+    find $FIRMDIR -name $conffile | cut -c${#FIRMDIR}- | tee -a $FILE
 done
 msg ""
 msg "Search for SSL related files"
-msg "##################################### SSL files"
 getArray "data/sslfiles"
 sslfiles=("${array[@]}")
 for sslfile in ${sslfiles[@]}
 do
     msg "##################################### $sslfile"
-    find $FIRMDIR -name "*.$sslfile" | cut -c${#FIRMDIR}- | tee -a $FILE
+    find $FIRMDIR -name $sslfile | cut -c${#FIRMDIR}- | tee -a $FILE
 done
 msg "Search for shell scripts"
 msg "##################################### shell scripts"
@@ -95,6 +97,7 @@ for pattern in "${patterns[@]}"
 do
     msg "##################################### $pattern"
     grep -lsirnw $FIRMDIR -e "$pattern" | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
 done
 msg ""
 msg "Search for web servers"
