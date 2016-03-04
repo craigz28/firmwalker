@@ -7,3 +7,4 @@ dropbear
 busybox
 telnet
 telnetd
+openssl
