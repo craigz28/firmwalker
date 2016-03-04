@@ -40,57 +40,74 @@ if [[ -e "$FILE" && ! -h "$FILE" && -f "$FILE" ]]; then
 fi
 
 # Perform searches
-msg "Firmware Directory"
+msg "***Firmware Directory***"
 msg $FIRMDIR
-msg "Search for password files"
+msg "***Search for password files***"
 getArray "data/passfiles"
 passfiles=("${array[@]}")
 for passfile  in "${passfiles[@]}"
 do
     msg "##################################### $passfile"
     find $FIRMDIR -name $passfile | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
 done
+msg "***Search for Unix-MD5 hashes***"
+egrep -ro '\$1\$\w{8}\S{23}' $FIRMDIR | tee -a $FILE
 msg ""
 if [[ -d "$FIRMDIR/etc/ssl" ]]; then
-    msg "List etc/ssl directory"
+    msg "***List etc/ssl directory***"
     ls -l $FIRMDIR/etc/ssl | tee -a $FILE
 fi
 msg ""
-msg "Search for SSH related files"
-getArray "data/sshfiles"
-sshfiles=("${array[@]}")
-for sshfile in ${sshfiles[@]}
-do
-    msg "##################################### $sshfile"
-    find $FIRMDIR -name $sshfile | cut -c${#FIRMDIR}- | tee -a $FILE
-done
-msg ""
-msg "Search for configuration files"
-getArray "data/conffiles"
-conffiles=("${array[@]}")
-for conffile in ${conffiles[@]}
-do
-    msg "##################################### $conffile"
-    find $FIRMDIR -name $conffile | cut -c${#FIRMDIR}- | tee -a $FILE
-done
-msg ""
-msg "Search for SSL related files"
+msg "***Search for SSL related files***"
 getArray "data/sslfiles"
 sslfiles=("${array[@]}")
 for sslfile in ${sslfiles[@]}
 do
     msg "##################################### $sslfile"
     find $FIRMDIR -name $sslfile | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
 done
-msg "Search for shell scripts"
+msg ""
+msg "***Search for SSH related files***"
+getArray "data/sshfiles"
+sshfiles=("${array[@]}")
+for sshfile in ${sshfiles[@]}
+do
+    msg "##################################### $sshfile"
+    find $FIRMDIR -name $sshfile | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
+done
+msg ""
+msg "***Search for configuration files***"
+getArray "data/conffiles"
+conffiles=("${array[@]}")
+for conffile in ${conffiles[@]}
+do
+    msg "##################################### $conffile"
+    find $FIRMDIR -name $conffile | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
+done
+msg ""
+msg "***Search for database related files***"
+getArray "data/dbfiles"
+dbfiles=("${array[@]}")
+for dbfile in ${dbfiles[@]}
+do
+    msg "##################################### $dbfile"
+    find $FIRMDIR -name $dbfile | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
+done
+msg ""
+msg "***Search for shell scripts***"
 msg "##################################### shell scripts"
 find $FIRMDIR -name "*.sh" | cut -c${#FIRMDIR}- | tee -a $FILE
 msg ""
-msg "Search for other .bin files"
+msg "***Search for other .bin files***"
 msg "##################################### bin files"
 find $FIRMDIR -name "*.bin" | cut -c${#FIRMDIR}- | tee -a $FILE
 msg ""
-msg "Search for patterns in files"
+msg "***Search for patterns in files***"
 getArray "data/patterns"
 patterns=("${array[@]}")
 for pattern in "${patterns[@]}"
@@ -100,7 +117,7 @@ do
     msg ""
 done
 msg ""
-msg "Search for web servers"
+msg "***Search for web servers***"
 msg "##################################### search for web servers"
 getArray "data/webservers"
 webservers=("${array[@]}")
@@ -108,9 +125,10 @@ for webserver in ${webservers[@]}
 do
     msg "##################################### $webserver"
     find $FIRMDIR -name "$webserver" | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
 done
 msg ""
-msg "Search for important binaries"
+msg "***Search for important binaries***"
 msg "##################################### important binaries"
 getArray "data/binaries"
 binaries=("${array[@]}")
@@ -118,4 +136,5 @@ for binary in "${binaries[@]}"
 do
     msg "##################################### $binary"
     find $FIRMDIR -name "$binary" | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg ""
 done
