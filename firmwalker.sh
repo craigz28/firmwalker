@@ -138,3 +138,6 @@ do
     find $FIRMDIR -name "$binary" | cut -c${#FIRMDIR}- | tee -a $FILE
     msg ""
 done
+
+#Perform static code analysis 
+eslint -c .eslintrc.json $FIRMDIR | tee -a $FILE

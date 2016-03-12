@@ -17,6 +17,7 @@ It will search through the extracted or mounted firmware file system for things 
 * NOTE: Some of the data written to the file may be quite verbose. It that case, the data can be reviewed and then deleted if desired from the file.
 
 ## Usage
+* Firstly instal eslint: ´npm i -g eslint´
 * './firmwalker {path to root file system}'
 * Example: './firmwalker linksys/fmk/rootfs'
 * A file "firmwalker.txt" will be created in the same directory as the script file unless you specify a different filename as the second argument
