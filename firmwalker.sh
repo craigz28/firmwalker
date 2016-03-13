@@ -139,5 +139,16 @@ do
     msg ""
 done
 
+msg ""
+msg "***Search for ip addresses***"
+msg "##################################### ip addresses"
+grep -RIEo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' $FIRMDIR | awk -F ":" '{print $2$3}' | uniq | tee -a $FILE
+
+
+msg ""
+msg "***Search for urls***"
+msg "##################################### urls"
+grep -RIEo '(http|https)://[^/"]+' $FIRMDIR | awk -F ":" '{print $2$3}' | uniq | tee -a $FILE
+
 #Perform static code analysis 
 eslint -c .eslintrc.json $FIRMDIR | tee -a $FILE
