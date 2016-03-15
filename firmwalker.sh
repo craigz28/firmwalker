@@ -52,7 +52,7 @@ do
     msg ""
 done
 msg "***Search for Unix-MD5 hashes***"
-egrep -ro '\$1\$\w{8}\S{23}' $FIRMDIR | tee -a $FILE
+egrep -sro '\$1\$\w{8}\S{23}' $FIRMDIR | tee -a $FILE
 msg ""
 if [[ -d "$FIRMDIR/etc/ssl" ]]; then
     msg "***List etc/ssl directory***"
