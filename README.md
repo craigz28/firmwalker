@@ -19,7 +19,7 @@ It will search through the extracted or mounted firmware file system for things 
 
 ## Usage
 * If you wish to use the static code analysis portion of the script, please install eslint: `npm i -g eslint`
-* `./firmwalker {path to root file system} {path to firmwalker.txt}`
+* `./firmwalker {path to root file system} {path for firmwalker.txt}`
 * Example: `./firmwalker linksys/fmk/rootfs ../firmwalker.txt`
 * A file `firmwalker.txt` will be created in the same directory as the script file unless you specify a different filename as the second argument
 * Do not put the firmwalker.sh file inside the directory to be searched, this will cause the script to search itself and the file it is creating
