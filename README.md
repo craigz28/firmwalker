@@ -13,6 +13,7 @@ It will search through the extracted or mounted firmware file system for things 
 * look for keywords such as admin, password, remote, etc.
 * search for common web servers used on IoT devices
 * search for common binaries such as ssh, tftp, dropbear, etc.
+* search for URLs, email addresses and IP addresses
 
 * NOTE: Some of the data written to the file may be quite verbose. It that case, the data can be reviewed and then deleted if desired from the file.
 
@@ -28,8 +29,8 @@ It will search through the extracted or mounted firmware file system for things 
 * Have a look under 'data' where the checks live or add eslint rules - http://eslint.org/docs/rules/ to eslintrc.json
 
 ### Script created by Craig Smith and expanded by:
-- Athanasios Kostopoulos
-- misterch0c
+* Athanasios Kostopoulos
+* misterch0c
 
 * https://craigsmith.net
 * https://woktime.wordpress.com
