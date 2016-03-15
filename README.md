@@ -32,6 +32,7 @@ It will search through the extracted or mounted firmware file system for things 
 * Athanasios Kostopoulos
 * misterch0c
 
+### Links
 * https://craigsmith.net
 * https://woktime.wordpress.com
 * https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project#tab=Firmware_Analysis
