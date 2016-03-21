@@ -153,7 +153,7 @@ grep -sRIEoh '(http|https)://[^/"]+' $FIRMDIR  | uniq | tee -a $FILE
 msg ""
 msg "***Search for emails***"
 msg "##################################### emails"
-grep -sEIorh '([[:alnum:]_.-]+@[[:alnum:]_.-]+?\.[[:alpha:].]{2,6})' "$@" $FIRMDIR | sort | uniq | tee -a $FILE
+grep -sRIEoh '([[:alnum:]_.-]+@[[:alnum:]_.-]+?\.[[:alpha:].]{2,6})' "$@" $FIRMDIR | sort | uniq | tee -a $FILE
 
 #Perform static code analysis 
 eslint -c eslintrc.json $FIRMDIR | tee -a $FILE
