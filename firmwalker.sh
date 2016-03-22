@@ -142,13 +142,12 @@ done
 msg ""
 msg "***Search for ip addresses***"
 msg "##################################### ip addresses"
-grep -sRIEho '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' $FIRMDIR  | uniq | tee -a $FILE
-
+grep -sRIEho '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' $FIRMDIR | sort | uniq | tee -a $FILE
 
 msg ""
 msg "***Search for urls***"
 msg "##################################### urls"
-grep -sRIEoh '(http|https)://[^/"]+' $FIRMDIR  | uniq | tee -a $FILE
+grep -sRIEoh '(http|https)://[^/"]+' $FIRMDIR | sort | uniq | tee -a $FILE
 
 msg ""
 msg "***Search for emails***"
