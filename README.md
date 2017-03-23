@@ -29,7 +29,7 @@ It will search through the extracted or mounted firmware file system for things 
 
 ## Example Files
 * squashfs zip file containing files from random extracted router firmware. Firmwalker can be run against this file system.
-* https://1drv.ms/f/s!AucQMYXJNefdvGY8mz-T8FCSXhHg squashfs-root.zip
+* squashfs-root.zip     https://1drv.ms/f/s!AucQMYXJNefdvGY8mz-T8FCSXhHg
 
 ### Script created by Craig Smith and expanded by:
 * Athanasios Kostopoulos
