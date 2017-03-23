@@ -27,6 +27,10 @@ It will search through the extracted or mounted firmware file system for things 
 ## How to extend
 * Have a look under 'data' where the checks live or add eslint rules - http://eslint.org/docs/rules/ to eslintrc.json
 
+## Example Files
+* squashfs zip file containing files from random extracted router firmware. Firmwalker can be run against this file system.
+* https://1drv.ms/f/s!AucQMYXJNefdvGY8mz-T8FCSXhHg squashfs-root.zip
+
 ### Script created by Craig Smith and expanded by:
 * Athanasios Kostopoulos
 * misterch0c
