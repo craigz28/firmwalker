@@ -65,7 +65,16 @@ sslfiles=("${array[@]}")
 for sslfile in ${sslfiles[@]}
 do
     msg "##################################### $sslfile"
-    find $FIRMDIR -name $sslfile | cut -c${#FIRMDIR}- | tee -a $FILE
+       certfiles=( $(find ${FIRMDIR} -name ${sslfile}) )
+       : "${certfiles:=empty}"
+       if [ "$certfiles" != "empty" ]; then
+          for certfile in "${certfiles[@]}"
+          do
+             echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
+             openssl x509 -in $certfile -serial -noout | tee -a $FILE
+             cat $certfile | tee -a $FILE
+          done
+       fi
     msg ""
 done
 msg ""
