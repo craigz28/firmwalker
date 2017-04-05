@@ -29,7 +29,8 @@ It will search through the extracted or mounted firmware file system for things 
 
 ## Example Files - https://1drv.ms/f/s!AucQMYXJNefdvGZyeYt16H72VCLv
 * squashfs-root.zip - containa files from random extracted router firmware. Firmwalker can be run against this file system.
-*  rt-ac66u.txt - firmwalker output file 
+* rt-ac66u.txt - firmwalker output file
+* xc.txt - firmwalkier output file from Ubiquiti device 
 ### Script created by Craig Smith and expanded by:
 * Athanasios Kostopoulos
 * misterch0c
