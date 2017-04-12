@@ -14,7 +14,7 @@ It will search through the extracted or mounted firmware file system for things 
 * search for common web servers used on IoT devices
 * search for common binaries such as ssh, tftp, dropbear, etc.
 * search for URLs, email addresses and IP addresses
-* NOTE: Some of the data written to the file may be quite verbose. It that case, the data can be reviewed and then deleted if desired from the file.
+* Experimental support for making calls to the Shodan API using the Shodan CLI
 
 ## Usage
 * If you wish to use the static code analysis portion of the script, please install eslint: `npm i -g eslint`
