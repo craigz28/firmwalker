@@ -3,11 +3,11 @@ set -e
 set -u
 
 function usage {
-	echo "Usage:"
-	echo "$0 {path to extracted file system of firmware}\
+    echo "Usage:"
+    echo "$0 {path to the firmware}\
  {optional: name of the file to store results - defaults to firmwalker.txt}"
-	echo "Example: ./$0 linksys/fmk/rootfs/"
-	exit 1
+    echo "Example: ./$0 linksys/fmk/rootfs/"
+    exit 1
 }
 
 function msg {
@@ -38,6 +38,12 @@ fi
 if [[ -e "$FILE" && ! -h "$FILE" && -f "$FILE" ]]; then
     rm -f $FILE
 fi
+# Remove previous folder for extracted firmware if it exists
+rm -R extract
+
+# Binwalk integration
+binwalk -e --directory=./extract $FIRMDIR
+FIRMDIR="$(pwd)/extract"
 
 # Perform searches
 msg "***Firmware Directory***"
