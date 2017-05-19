@@ -1,6 +1,6 @@
 ![logo](https://github.com/craigz28/firmwalker/blob/master/firmwalker-logo.jpg)
 # firmwalker
-A simple bash  script for searching the extracted or mounted firmware file system.
+A simple bash script for extracting and searching the mounted firmware file system.
 
 It will search through the extracted or mounted firmware file system for things of interest such as:
 
@@ -17,9 +17,10 @@ It will search through the extracted or mounted firmware file system for things 
 * Experimental support for making calls to the Shodan API using the Shodan CLI
 
 ## Usage
+* Install Binwalk before running Firmwalker `$ sudo apt-get install binwalk`
 * If you wish to use the static code analysis portion of the script, please install eslint: `npm i -g eslint`
-* `./firmwalker {path to root file system} {path for firmwalker.txt}`
-* Example: `./firmwalker linksys/fmk/rootfs ../firmwalker.txt`
+* `./firmwalker {path to the firmware} {path for firmwalker.txt}`
+* Example: `./firmwalker linksys/fmk/firmware.bin ../firmwalker.txt`
 * A file `firmwalker.txt` will be created in the same directory as the script file unless you specify a different filename as the second argument
 * Do not put the firmwalker.sh file inside the directory to be searched, this will cause the script to search itself and the file it is creating
 * `chmod 0700 firmwalker.sh`
@@ -34,6 +35,8 @@ It will search through the extracted or mounted firmware file system for things 
 ### Script created by Craig Smith and expanded by:
 * Athanasios Kostopoulos
 * misterch0c
+* Yogesh Sharma
+* Kumar Harsh
 
 ### Links
 * https://craigsmith.net
