@@ -38,8 +38,11 @@ fi
 if [[ -e "$FILE" && ! -h "$FILE" && -f "$FILE" ]]; then
     rm -f $FILE
 fi
+
 # Remove previous folder for extracted firmware if it exists
-rm -R extract
+if [ -d "extract" ]; then
+    rm -R extract
+fi
 
 # Binwalk integration
 binwalk -e --directory=./extract $FIRMDIR
