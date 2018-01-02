@@ -1,4 +1,5 @@
 *.pem
+*.pem.*
 *.crt
 *.cer
 *.p7b
