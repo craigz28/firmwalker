@@ -65,21 +65,24 @@ sslfiles=("${array[@]}")
 for sslfile in ${sslfiles[@]}
 do
     msg "##################################### $sslfile"
-       certfiles=( $(find ${FIRMDIR} -name ${sslfile}) )
-       : "${certfiles:=empty}"
-       if [ "${certfiles##*.}" = "crt" ]; then
-          for certfile in "${certfiles[@]}"
-          do
-             echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
-             serialno=$(openssl x509 -in $certfile -serial -noout)
-             echo $serialno | tee -a $FILE
-             # Perform Shodan search. This assumes Shodan CLI installed with an API key. Uncomment following three lines if you wish to use.
-             # serialnoformat=(ssl.cert.serial:${serialno##*=})
-             # shocount=$(shodan count $serialnoformat)
-             # echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
-             cat $certfile | tee -a $FILE
-          done
-       fi
+        certfiles=( $(find ${FIRMDIR} -name ${sslfile}) )
+        : "${certfiles:=empty}"
+        for certfile in "${certfiles[@]}"
+        do
+            if [ "${certfile##*.}" = "crt" ]; then
+                echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
+                serialno=$(openssl x509 -in $certfile -serial -noout)
+                echo $serialno | tee -a $FILE
+                # Perform Shodan search. This assumes Shodan CLI installed with an API key. Uncomment following three lines if you wish to use.
+                # serialnoformat=(ssl.cert.serial:${serialno##*=})
+                # shocount=$(shodan count $serialnoformat)
+                # echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
+                cat $certfile | tee -a $FILE
+            else
+                # all other SSL related files
+                echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
+            fi
+        done
     msg ""
 done
 msg ""
