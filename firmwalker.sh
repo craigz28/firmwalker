@@ -68,6 +68,7 @@ do
     find $FIRMDIR -name $sslfile | cut -c${#FIRMDIR}- | tee -a $FILE
        certfiles=( $(find ${FIRMDIR} -name ${sslfile}) )
        : "${certfiles:=empty}"
+       # Perform Shodan search. This assumes Shodan CLI installed with an API key.
        if [ "${certfiles##*.}" = "pem" ] || [ "${certfiles##*.}" = "crt" ]; then
           for certfile in "${certfiles[@]}"
           do
@@ -76,11 +77,10 @@ do
              shocount=$(shodan count $serialnoformat)
              if (( $shocount > 0 )); then
 		msg "################# Certificate serial # found in Shodan ####################"
-		# Perform Shodan search. This assumes Shodan CLI installed with an API key. Uncomment following four lines if you wish to use.
-		#echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
-		#echo $serialno | tee -a $FILE
-             	#echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
-		#cat $certfile | tee -a $FILE
+		echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
+		echo $serialno | tee -a $FILE
+             	echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
+		cat $certfile | tee -a $FILE
 		msg "###########################################################################"
              fi
           done
