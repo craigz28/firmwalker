@@ -65,24 +65,26 @@ sslfiles=("${array[@]}")
 for sslfile in ${sslfiles[@]}
 do
     msg "##################################### $sslfile"
-        certfiles=( $(find ${FIRMDIR} -name ${sslfile}) )
-        : "${certfiles:=empty}"
-        for certfile in "${certfiles[@]}"
-        do
-            if [ "${certfile##*.}" = "crt" ]; then
-                echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
-                serialno=$(openssl x509 -in $certfile -serial -noout)
-                echo $serialno | tee -a $FILE
-                # Perform Shodan search. This assumes Shodan CLI installed with an API key. Uncomment following three lines if you wish to use.
-                # serialnoformat=(ssl.cert.serial:${serialno##*=})
-                # shocount=$(shodan count $serialnoformat)
-                # echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
-                cat $certfile | tee -a $FILE
-            else
-                # all other SSL related files
-                echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
-            fi
-        done
+    find $FIRMDIR -name $sslfile | cut -c${#FIRMDIR}- | tee -a $FILE
+       certfiles=( $(find ${FIRMDIR} -name ${sslfile}) )
+       : "${certfiles:=empty}"
+       if [ "${certfiles##*.}" = "pem" ] || [ "${certfiles##*.}" = "crt" ]; then
+          for certfile in "${certfiles[@]}"
+          do
+             serialno=$(openssl x509 -in $certfile -serial -noout) || echo "Incorrect File Content:Continuing"
+             serialnoformat=(ssl.cert.serial:${serialno##*=})
+             shocount=$(shodan count $serialnoformat)
+             if (( $shocount > 0 )); then
+		msg "################# Certificate serial # found in Shodan ####################"
+		# Perform Shodan search. This assumes Shodan CLI installed with an API key. Uncomment following four lines if you wish to use.
+		#echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
+		#echo $serialno | tee -a $FILE
+             	#echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
+		#cat $certfile | tee -a $FILE
+		msg "###########################################################################"
+             fi
+          done
+       fi
     msg ""
 done
 msg ""
@@ -96,13 +98,13 @@ do
     msg ""
 done
 msg ""
-msg "***Search for configuration files***"
-getArray "data/conffiles"
-conffiles=("${array[@]}")
-for conffile in ${conffiles[@]}
+msg "***Search for files***"
+getArray "data/files"
+files=("${array[@]}")
+for file in ${files[@]}
 do
-    msg "##################################### $conffile"
-    find $FIRMDIR -name $conffile | cut -c${#FIRMDIR}- | tee -a $FILE
+    msg "##################################### $file"
+    find $FIRMDIR -name $file | cut -c${#FIRMDIR}- | tee -a $FILE
     msg ""
 done
 msg ""
@@ -129,7 +131,7 @@ getArray "data/patterns"
 patterns=("${array[@]}")
 for pattern in "${patterns[@]}"
 do
-    msg "##################################### $pattern"
+    msg "-------------------- $pattern --------------------"
     grep -lsirnw $FIRMDIR -e "$pattern" | cut -c${#FIRMDIR}- | tee -a $FILE
     msg ""
 done
