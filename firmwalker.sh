@@ -74,19 +74,24 @@ do
           do
              serialno=$(openssl x509 -in $certfile -serial -noout) || echo "Incorrect File Content:Continuing"
              serialnoformat=(ssl.cert.serial:${serialno##*=})
-             shocount=$(shodan count $serialnoformat)
-             if (( $shocount > 0 )); then
-		msg "################# Certificate serial # found in Shodan ####################"
-		echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
-		echo $serialno | tee -a $FILE
-             	echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
-		cat $certfile | tee -a $FILE
-		msg "###########################################################################"
+             if type "shodan" &> /dev/null ; then
+                 shocount=$(shodan count $serialnoformat)
+                 if (( $shocount > 0 )); then
+            		msg "################# Certificate serial # found in Shodan ####################"
+            		echo $certfile | cut -c${#FIRMDIR}- | tee -a $FILE
+            		echo $serialno | tee -a $FILE
+                         	echo "Number of devices found in Shodan =" $shocount | tee -a $FILE
+            		cat $certfile | tee -a $FILE
+            		msg "###########################################################################"
+                 fi
+             else 
+                echo "Shodan cli not found."
              fi
           done
        fi
     msg ""
 done
+
 msg ""
 msg "***Search for SSH related files***"
 getArray "data/sshfiles"
