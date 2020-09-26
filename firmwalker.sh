@@ -166,7 +166,7 @@ done
 msg ""
 msg "***Search for ip addresses***"
 msg "##################################### ip addresses"
-grep -sRIEho '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' --exclude-dir='dev' $FIRMDIR | sort | uniq | tee -a $FILE
+grep -sRIEho '\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b' --exclude-dir='dev' $FIRMDIR | sort | uniq | tee -a $FILE
 
 msg ""
 msg "***Search for urls***"
