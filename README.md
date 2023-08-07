@@ -16,6 +16,17 @@ It will search through the extracted or mounted firmware file system for things 
 * search for URLs, email addresses and IP addresses
 * Experimental support for making calls to the Shodan API using the Shodan CLI
 
+## Installing Dependencies
+```bash
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install python3-pip
+$ pip install --upgrade pip
+$ git clone https://github.com/Feehley/firmwalker.git
+$ cd firmwalker
+$ pip install -r requirements.txt
+```
+
 ## Usage
 * Help Menu
 ```bash
@@ -47,8 +58,8 @@ $ chmod 0700 firmwalker.sh
 $ chmod 0700 firmwalker.py
 ```
 
-## How to extend
-* Have a look under 'data' where the checks live or add eslint rules - http://eslint.org/docs/rules/ to eslintrc.json
+## How to Extend
+* In the data directory there are some eslint rules; use these as a template to extend functionality
 
 ## Example Files - https://1drv.ms/f/s!AucQMYXJNefdvGZyeYt16H72VCLv
 * squashfs-root.zip - contains files from random extracted router firmware. Firmwalker can be run against this file system.
@@ -57,6 +68,7 @@ $ chmod 0700 firmwalker.py
 ### Script created by Craig Smith and expanded by:
 * Athanasios Kostopoulos
 * misterch0c
+* Feehley
 
 ### Links
 * https://craigsmith.net
