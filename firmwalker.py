@@ -5,9 +5,6 @@ from os import path
 from pathlib import Path
 from re import compile, match
 from tqdm import tqdm
-#from re import findall
-
-from subprocess import run
 from subprocess import Popen, PIPE
 
 
