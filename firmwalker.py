@@ -8,20 +8,13 @@ from tqdm import tqdm
 #from re import findall
 
 from subprocess import run
-from subprocess import Popen, PIPE 
+from subprocess import Popen, PIPE
 
 
 def get_args():
     parser = ArgumentParser()
     parser.add_argument(
         "firmware_directory"
-    )
-    parser.add_argument(
-        "-r",
-        "--regex",
-        help    = "Option to use \"data/regex\" - takes a long time",
-        action  = "store_true",
-        default = False
     )
     parser.add_argument(
         "-o",
@@ -34,13 +27,12 @@ def get_args():
 
 
 class Firmwalker():
-    def __init__(self, firmware_directory, output_file, include_regex):
+    def __init__(self, firmware_directory, output_file):
         if not path.isdir(firmware_directory):
             print("[!] Please choose a valid directory")
             exit(-1)
         self.directory   = firmware_directory
         self.output_file = output_file
-        self.inc_regex   = include_regex
         self.filelisting = []
         self.dfd         = {}
         self.located     = {}
@@ -162,7 +154,7 @@ class Firmwalker():
                 self.not_searching_patterns(d, tmp_filelisting)
             elif d == "patterns":
                 self.searching_patterns(d, tmp_filelisting)
-            elif d.endswith("_regex") and self.inc_regex:
+            elif d.endswith("_regex"):
                 self.grep(d, tmp_filelisting)
 
             if d in self.located:
@@ -181,7 +173,6 @@ def main():
     firmwalker = Firmwalker(
         args["firmware_directory"],
         args["output"],
-        args["regex"]
     )
     return
 
