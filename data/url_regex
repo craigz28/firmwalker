@@ -1,0 +1,1 @@
+grep -sRIEho '(http|https)://[^/"]+' --exclude-dir="dev" $1 | sort | uniq
