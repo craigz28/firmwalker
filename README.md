@@ -1,6 +1,6 @@
 ![logo](https://github.com/craigz28/firmwalker/blob/master/firmwalker-logo.jpg)
 # firmwalker
-A simple bash  script for searching the extracted or mounted firmware file system.
+A simple ~~bash~~ Python3 script for searching the extracted or mounted firmware file system.
 
 It will search through the extracted or mounted firmware file system for things of interest such as:
 
@@ -17,12 +17,35 @@ It will search through the extracted or mounted firmware file system for things 
 * Experimental support for making calls to the Shodan API using the Shodan CLI
 
 ## Usage
-* If you wish to use the static code analysis portion of the script, please install eslint: `npm i -g eslint`
-* `./firmwalker {path to root file system} {path for firmwalker.txt}`
-* Example: `./firmwalker linksys/fmk/rootfs ../firmwalker.txt`
+* Help Menu
+```bash
+$ python3 firmwalker.py --help
+usage: firmwalker.py [-h] [-o OUTPUT] firmware_directory
+
+positional arguments:
+  firmware_directory
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Optional name of the file to store results - defaults to "firmwalker.txt"
+
+```
+* Example of writing to default output file:
+``` bash
+$ python3 ./firmwalker.py linksys/fmk/footfs
+```
 * A file `firmwalker.txt` will be created in the same directory as the script file unless you specify a different filename as the second argument
-* Do not put the firmwalker.sh file inside the directory to be searched, this will cause the script to search itself and the file it is creating
-* `chmod 0700 firmwalker.sh`
+* Example of writing to a custom output file:
+```bash
+$ python3 ./firmwalker.py linksys/fmk/footfs -o ../firmwalker.txt
+```
+* Do not put the firmwalker.sh or firmwalker.py inside the directory to be searched, this will cause the script to search itself and the file it is creating
+* To make the files executable:
+``` bash
+$ chmod 0700 firmwalker.sh
+$ chmod 0700 firmwalker.py
+```
 
 ## How to extend
 * Have a look under 'data' where the checks live or add eslint rules - http://eslint.org/docs/rules/ to eslintrc.json
