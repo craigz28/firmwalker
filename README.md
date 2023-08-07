@@ -31,14 +31,13 @@ $ pip install -r requirements.txt
 * Help Menu
 ```bash
 $ python3 ./firmwalker.py -h 
-usage: firmwalker.py [-h] [-r] [-o OUTPUT] firmware_directory
+usage: firmwalker.py [-h] [-o OUTPUT] firmware_directory
 
 positional arguments:
   firmware_directory
 
 optional arguments:
   -h, --help            show this help message and exit
-  -r, --regex           Option to use "data/regex" - takes a long time
   -o OUTPUT, --output OUTPUT
                         Optional name of the file to store results - defaults to "firmwalker.txt"
 
