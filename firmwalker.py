@@ -3,13 +3,25 @@
 from argparse import ArgumentParser
 from os import path
 from pathlib import Path
-from re import compile
+from re import compile, match
+from tqdm import tqdm
+#from re import findall
+
+from subprocess import run
+from subprocess import Popen, PIPE 
 
 
 def get_args():
     parser = ArgumentParser()
     parser.add_argument(
         "firmware_directory"
+    )
+    parser.add_argument(
+        "-r",
+        "--regex",
+        help    = "Option to use \"data/regex\" - takes a long time",
+        action  = "store_true",
+        default = False
     )
     parser.add_argument(
         "-o",
@@ -22,12 +34,13 @@ def get_args():
 
 
 class Firmwalker():
-    def __init__(self, firmware_directory, output_file):
+    def __init__(self, firmware_directory, output_file, include_regex):
         if not path.isdir(firmware_directory):
             print("[!] Please choose a valid directory")
             exit(-1)
         self.directory   = firmware_directory
         self.output_file = output_file
+        self.inc_regex   = include_regex
         self.filelisting = []
         self.dfd         = {}
         self.located     = {}
@@ -96,7 +109,11 @@ class Firmwalker():
 
     def searching_patterns(self, d, tmp_filelisting):
         for st in self.dfd[d]:
-            for file in self.filelisting:
+            op = f"\tSearching for: {st}\n"
+            self.store_results(op)
+            for i in tqdm(range(len(self.filelisting))):
+                file = self.filelisting[i]
+                st = str(st)
                 with open(file, 'rb') as fptr:
                     content = fptr.read()
                 if bytes(st, "utf-8") in content:
@@ -116,12 +133,19 @@ class Firmwalker():
                 for f in self.located[dfd][found]:
                     if tmp == found:
                         op = f
-                    else: 
+                    else:
                         tmp = found
                         op = f"{self.subline} {found} {self.subline}\n"
                         op += f
                     self.store_results(op)
         return
+
+    def grep(self, d, tmp_filelisting):
+        cmd = ["/bin/bash", f"./data/{d}", self.directory]
+        process = Popen(cmd, stdout=PIPE, stderr=PIPE)
+        out, err = process.communicate()
+        out = out.decode("utf-8")
+        self.store_results(out)
 
 
     def store_results(self, op):
@@ -134,10 +158,12 @@ class Firmwalker():
         for d in self.dfd:
             op = f"[+] Searching {d}"
             self.store_results(op)
-            if d != "patterns":
+            if d != "patterns" and not d.endswith("_regex"):
                 self.not_searching_patterns(d, tmp_filelisting)
-            else:
+            elif d == "patterns":
                 self.searching_patterns(d, tmp_filelisting)
+            elif d.endswith("_regex") and self.inc_regex:
+                self.grep(d, tmp_filelisting)
 
             if d in self.located:
                 self.print_results(d)
@@ -147,14 +173,15 @@ class Firmwalker():
     def write_results(self):
         if path.isfile(self.output_file):
             self.output_file = f"_{self.output_file}"
-        with open(self.output_file, 'w') as fptr:
+        with open(self.output_file, 'a') as fptr:
             fptr.write(self.output)
 
 def main():
     args = get_args()
     firmwalker = Firmwalker(
         args["firmware_directory"],
-        args["output"]
+        args["output"],
+        args["regex"]
     )
     return
 
