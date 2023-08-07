@@ -54,7 +54,6 @@ $ python3 ./firmwalker.py linksys/fmk/footfs -o ../firmwalker.txt
 * Do not put the firmwalker.sh or firmwalker.py inside the directory to be searched, this will cause the script to search itself and the file it is creating
 * To make the files executable:
 ``` bash
-$ chmod 0700 firmwalker.sh
 $ chmod 0700 firmwalker.py
 ```
 
