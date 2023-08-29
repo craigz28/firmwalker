@@ -74,3 +74,8 @@ $ chmod 0700 firmwalker.py
 * https://craigsmith.net
 * https://woktime.wordpress.com
 * https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project#tab=Firmware_Analysis
+
+### TODO
+- [ ] Convert data directory files into Python3 to streamline code
+- [ ] Convert "greps" in data directory into more efficient Python...
+- [ ] Once Python-ized turn data dir into another import for API sustainability
